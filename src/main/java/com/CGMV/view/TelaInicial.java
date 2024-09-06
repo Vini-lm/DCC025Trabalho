@@ -8,14 +8,20 @@ public class TelaInicial  {
     private JFrame window;
     private final int LAR = 800;
     private final int ALT = 600;
-    private final String FONTE = " "; // definir fonte
-    private final int []EIXO_X = new int [10]; // ver quantidade de unidades
-    private final int []EIXO_Y = new int [10]; // ver quantidade de unidades
+    private JPanel painel;
+    private JButton button;
 
     public TelaInicial() {
         window = new JFrame("Inicio");
         window.setSize(LAR, ALT);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        button = new JButton("Iniciar jogo");
+        painel = new JPanel();
+        painel.setLayout(null);
+        button.setBounds(325 ,275,100,50);
+        button.setToolTipText("Clique para iniciar jogo");
+        painel.add(button);
+        window.add(painel);
         window.setVisible(true);
     }
 
