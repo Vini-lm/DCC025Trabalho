@@ -2,16 +2,20 @@ package com.CGMV;
 
 
 import com.CGMV.view.TelaInicial;
+import com.CGMV.view.TelaJogo;
 
-import java.util.Random;
+import javax.swing.*;
+
 
 public class SnakeGame {
 
 
     public static void main(String[] args)
     {
-        TelaInicial teste = new TelaInicial();
+        //TelaInicial teste = new TelaInicial();
+        TelaJogo teste2 = new TelaJogo();
         //teste.draw();
+
 
     }
 }
