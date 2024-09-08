@@ -14,7 +14,7 @@ public class TelaJogo extends JPanel implements ActionListener {
 
     private final int LAR = 800;
     private final int ALT = 600;
-    private int delay = 35;
+    private int delay;
     private Cobra cobra;
     private Fruta fruta;
     private int pTabuleiro = 25;
@@ -33,6 +33,7 @@ public class TelaJogo extends JPanel implements ActionListener {
         cobra = new Cobra();
         fruta = new Fruta("banana");
         random = new Random();
+        delay = cobra.getSPEED();
         setFocusable(true);
         setPreferredSize(new Dimension(LAR,ALT));
         setBackground(Color.WHITE);

@@ -1,7 +1,7 @@
 package com.CGMV.Entities;
 
 public class Cobra {
-    private final int SPEED = 200;
+    private final int SPEED = 60;
     private int tamCobra;
     private int frutasComidas;
     private char direcao;  // Direita, Esquerda, Cima, Baixo...
@@ -12,6 +12,10 @@ public class Cobra {
         frutasComidas = 0;
         direcao = 'D';
         estaViva = true;
+    }
+
+    public int getSPEED() {
+        return SPEED;
     }
 
     public char getDir()
