@@ -1,6 +1,7 @@
 package com.CGMV;
 
 
+import com.CGMV.Jogo.Game;
 import com.CGMV.view.TelaInicial;
 import com.CGMV.view.TelaJogo;
 
@@ -13,9 +14,9 @@ public class SnakeGame {
     public static void main(String[] args)
     {
         //TelaInicial teste = new TelaInicial();
-        TelaJogo teste2 = new TelaJogo();
+        //TelaJogo teste2 = new TelaJogo();
         //teste.draw();
-
+        Game game = new Game();
 
     }
 }
