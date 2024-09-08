@@ -7,14 +7,13 @@ import java.awt.event.KeyEvent;
 
 public class GameKeyListener extends KeyAdapter {
 
-    private Cobra cobra;
+    private Cobra cobra; // referencia para cobra
 
-public GameKeyListener(Cobra cobra){this.cobra = cobra;}
+public GameKeyListener(Cobra cobra){this.cobra = cobra;} // referencia para a cobra
 
 
     @Override
-    public void keyPressed(KeyEvent e) {
-
+    public void keyPressed(KeyEvent e) { // verifica se as teclas foram pressionadas
 
             switch (e.getKeyCode())
             {
@@ -32,6 +31,10 @@ public GameKeyListener(Cobra cobra){this.cobra = cobra;}
                    if(cobra.getDir() != 'D')
                        cobra.setDir('E');
 
+              case KeyEvent.VK_RIGHT:
+                  if(cobra.getDir() != 'E')
+                      cobra.setDir('D');
+                  break;
 
                case KeyEvent.VK_W:
                    if(cobra.getDir() != 'B')
