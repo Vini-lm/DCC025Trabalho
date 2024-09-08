@@ -14,13 +14,15 @@ public class TelaJogo extends JPanel implements ActionListener {
 
     private final int LAR = 800;
     private final int ALT = 600;
-    private JFrame janela;
-    private Cobra cobra = new Cobra();
-    private Fruta fruta = new Fruta("Banana");
-    private int unidades = 0;
+    private int delay = 35;
+    private Cobra cobra;
+    private Fruta fruta;
+    private int pTabuleiro = 25;
+    private int unidades = (LAR*ALT)/pTabuleiro*pTabuleiro;
     private final String FONTE = " "; // definir fonte
-    private final int []EIXO_X = new int [10]; // ver quantidade de unidades
-    private final int []EIXO_Y = new int [10]; // ver quantidade de unidades
+    private final int []EIXO_X = new int [unidades]; // ver quantidade de unidades
+    private final int []EIXO_Y = new int [unidades]; // ver quantidade de unidades
+    private boolean isRunning = false;
     private Timer timer;
     Random random;
 
@@ -28,20 +30,120 @@ public class TelaJogo extends JPanel implements ActionListener {
 
     public TelaJogo()
     {
-        janela = new JFrame();
-        janela.setSize(LAR, ALT);
+        cobra = new Cobra();
+        fruta = new Fruta("banana");
         random = new Random();
+        setFocusable(true);
         setPreferredSize(new Dimension(LAR,ALT));
-        setBackground(Color.BLACK);
-        setVisible(true);
+        setBackground(Color.WHITE);
         addKeyListener(new GameKeyListener(cobra));
-        janela.add(this);
-        janela.setVisible(true);
-
+        start();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(isRunning){
+            walk();
+            checkColisao();
+            }
+        repaint();
 
+    }
+
+    private void start()
+    {
+        isRunning = true;
+        setFrutaPos();
+        timer = new Timer(delay, this);
+        timer.start();
+    }
+
+    private void setFrutaPos() // Gerador de posição da fruta
+    {
+    fruta.setIdX(random.nextInt(LAR/pTabuleiro) * pTabuleiro); // gera uma posição X para a fruta
+    fruta.setIdY(random.nextInt(ALT/pTabuleiro) * pTabuleiro); // gera uma posição y para a fruta
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        desenhaJogo(g);
+    }
+
+
+    private void desenhaJogo(Graphics g)
+    {
+        if(isRunning)
+        {
+        g.setColor(Color.black); // cor da fruta
+        g.fillOval(fruta.getIdX(),fruta.getIdY(),pTabuleiro,pTabuleiro); // desenha a fruta na posição dela com o tamanho proporcional ao tabuleiro
+
+        for(int i = 0; i < cobra.getTamCobra(); i++) {
+            if (i == 0) { // desenha a cabeça da cobra
+                g.setColor(new Color(8, 186, 117));
+                g.fillRect(EIXO_X[0], EIXO_Y[0], pTabuleiro, pTabuleiro);
+            } else { // desenha o corpo dela
+            g.setColor(Color.YELLOW);
+            g.fillRect(EIXO_X[i], EIXO_Y[i], pTabuleiro, pTabuleiro);
+        }
+        }
+        g.setColor(Color.red);
+        }
+        else
+        {
+            System.out.println("Acabou");
+            timer.stop();
+        }
+    }
+
+
+    private void walk()
+    {
+        for(int i = cobra.getTamCobra(); i > 0; i--) // move o corpo da cobra pra frente
+        {
+            EIXO_X[i] = EIXO_X[i - 1];
+            EIXO_Y[i] = EIXO_Y[i - 1];
+        }
+        switch(cobra.getDir()) // move a cabeça da cobra de maneira proporcional ao Tabuleiro
+        {
+            case 'C':
+                EIXO_Y[0] = EIXO_Y[0] - pTabuleiro; // move a cobra para cima
+                break;
+
+            case'D':
+            EIXO_X[0] = EIXO_X[0] + pTabuleiro; // move a cobra para a direita
+            break;
+
+            case'E':
+                EIXO_X[0] = EIXO_X[0] - pTabuleiro; // move a cobra para a esquerda
+                break;
+            case'B':
+                EIXO_Y[0] = EIXO_Y[0] + pTabuleiro; //move a cobra para baixo
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void checkColisao()
+    {
+        for(int i = cobra.getTamCobra(); i > 0; i--)
+        {
+            if(EIXO_X[i] == fruta.getIdX() && EIXO_Y[i] == fruta.getIdY()) // se a cobra encostar na comida
+            {
+                cobra.feed(); // aumenta o tamanho dela
+                setFrutaPos(); // gera uma nova posição para a comida
+            }
+            if(EIXO_X[0] == EIXO_X[i] && EIXO_Y[0] == EIXO_Y[i]) // verifica se a cobra bateu no próprio corpo
+                isRunning = false;
+        }
+        if(EIXO_X[0] < 0  || EIXO_X[0] > LAR) // Se a cobra ultrapassar os limites da tela(bater em um dos lados)
+        {
+            isRunning = false;
+        }
+
+        if(EIXO_Y[0] < 0  || EIXO_Y[0] > ALT ) // Se a cobra ultrapassar os limites de altura
+            isRunning = false;
     }
 }
