@@ -20,5 +20,9 @@ public class Cobra {
     public void setDir(char dir)
     {direcao = dir;}
 
-
+    public int getTamCobra() {
+        return tamCobra;
+    }
+    public void feed()
+    {tamCobra++;}
 }

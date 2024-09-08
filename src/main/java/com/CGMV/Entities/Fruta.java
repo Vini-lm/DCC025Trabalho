@@ -13,4 +13,19 @@ public class Fruta {
     }
 
 
+    public void setIdX(int idX) {
+        this.idX = idX;
+    }
+
+    public void setIdY(int idY) {
+        this.idY = idY;
+    }
+
+    public int getIdX() {
+        return idX;
+    }
+
+    public int getIdY() {
+        return idY;
+    }
 }
