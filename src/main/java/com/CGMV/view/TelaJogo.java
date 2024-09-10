@@ -76,19 +76,57 @@ public class TelaJogo extends JPanel implements ActionListener {
     {
         if(isRunning)
         {
+            for(int i = 0; i < LAR;i+=pTabuleiro)
+                for(int j = 0; j < ALT;j+=pTabuleiro)
+                {
+                    if((i + j) %2 == 0) {
+                        g.setColor(new Color(36, 181, 22));
+                        g.fillRect(i, j, pTabuleiro, pTabuleiro);
+                    }
+                     else
+                    {
+                        g.setColor(new Color(38, 104, 6));
+                        g.fillRect(i, j,pTabuleiro,pTabuleiro);
+                    }
+                }
+
+
+            g.setColor(Color.red);
         g.setColor(Color.black); // cor da fruta
         g.fillOval(fruta.getIdX(),fruta.getIdY(),pTabuleiro,pTabuleiro); // desenha a fruta na posição dela com o tamanho proporcional ao tabuleiro
 
         for(int i = 0; i < cobra.getTamCobra(); i++) {
             if (i == 0) { // desenha a cabeça da cobra
-                g.setColor(new Color(8, 186, 117));
+                g.setColor(new Color(33, 5, 104));
                 g.fillRect(EIXO_X[0], EIXO_Y[0], pTabuleiro, pTabuleiro);
-            } else { // desenha o corpo dela
-            g.setColor(Color.YELLOW);
+            } else if(i % 2 == 0) { // desenha o corpo dela
+            g.setColor(new Color(48, 241, 2));
             g.fillRect(EIXO_X[i], EIXO_Y[i], pTabuleiro, pTabuleiro);
         }
+            else {
+                g.setColor(new Color(82, 236, 243));
+                g.fillRect(EIXO_X[i], EIXO_Y[i], pTabuleiro, pTabuleiro);
+            }
         }
-        g.setColor(Color.red);
+
+      /*  for(int i =0; i<ALT; i++)
+        {
+            g.setColor(Color.black);
+            g.drawLine(0,i*pTabuleiro,LAR,i*pTabuleiro);
+            g.setColor(Color.blue);
+
+        }
+
+        for(int i = 0; i < ALT; i++)
+        {
+            g.setColor(Color.black);
+            g.drawLine(i*pTabuleiro,0,i*pTabuleiro,ALT);
+            g.setColor(Color.blue);
+
+        }
+*/
+
+
         }
         else
         {
