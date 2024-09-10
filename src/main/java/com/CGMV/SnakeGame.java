@@ -13,10 +13,10 @@ public class SnakeGame {
 
     public static void main(String[] args)
     {
-        //TelaInicial teste = new TelaInicial();
+        TelaInicial teste = new TelaInicial();
         //TelaJogo teste2 = new TelaJogo();
         //teste.draw();
-        Game game = new Game();
+        //Game game = new Game();
 
     }
 }
