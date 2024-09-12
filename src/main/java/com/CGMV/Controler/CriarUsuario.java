@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.WindowEvent;
 
 public class CriarUsuario extends MouseAdapter implements ActionListener {
     private final JButton button;
@@ -21,6 +22,6 @@ public class CriarUsuario extends MouseAdapter implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         TelaEdicao nova = new TelaEdicao();
-        frame.setVisible(false);
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 }
