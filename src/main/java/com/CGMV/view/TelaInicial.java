@@ -15,6 +15,7 @@ public class TelaInicial extends JFrame implements ActionListener {
     private final int ALT = 600;
     private JPanel painel;
     private JButton button;
+    private JLabel label1;
 
     public TelaInicial() {
         //window = new JFrame("Inicio");
@@ -24,14 +25,19 @@ public class TelaInicial extends JFrame implements ActionListener {
         button = new JButton("Iniciar jogo");
         painel = new JPanel();
         painel.setLayout(null);
-        button.setBounds(325 ,275,100,50);
+        button.setBounds(350 ,275,100,50);
         button.setToolTipText("Clique para iniciar jogo");
         painel.add(button);
         button.addActionListener(new IniciarJogo(button,this));
-        add(painel);
-        setVisible(true);
        // window.add(painel);
        // window.setVisible(true);
+        label1 = new JLabel("Bem vindo ao Jogo da Cobrinha!!",JLabel.CENTER);
+        label1.setBounds(100 ,50,600,100);
+        label1.setFont(new Font("Arial", Font.BOLD, 30));
+        painel.add(label1);
+        add(painel);
+        label1.setVisible(true);
+        setVisible(true);
     }
 
 
