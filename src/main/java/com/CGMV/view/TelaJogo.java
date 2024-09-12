@@ -80,19 +80,19 @@ public class TelaJogo extends JPanel implements ActionListener {
                 for(int j = 0; j < ALT;j+=pTabuleiro)
                 {
                     if((i + j) %2 == 0) {
-                        g.setColor(new Color(36, 181, 22));
+                        g.setColor(new Color(142, 204, 59));
                         g.fillRect(i, j, pTabuleiro, pTabuleiro);
                     }
                      else
                     {
-                        g.setColor(new Color(38, 104, 6));
+                        g.setColor(new Color(167, 218, 74));
                         g.fillRect(i, j,pTabuleiro,pTabuleiro);
                     }
                 }
 
 
             g.setColor(Color.red);
-        g.setColor(Color.black); // cor da fruta
+        g.setColor(Color.red); // cor da fruta
         g.fillOval(fruta.getIdX(),fruta.getIdY(),pTabuleiro,pTabuleiro); // desenha a fruta na posição dela com o tamanho proporcional ao tabuleiro
 
         for(int i = 0; i < cobra.getTamCobra(); i++) {
@@ -100,11 +100,11 @@ public class TelaJogo extends JPanel implements ActionListener {
                 g.setColor(new Color(33, 5, 104));
                 g.fillRect(EIXO_X[0], EIXO_Y[0], pTabuleiro, pTabuleiro);
             } else if(i % 2 == 0) { // desenha o corpo dela
-            g.setColor(new Color(48, 241, 2));
+            g.setColor(new Color(77, 120, 247));
             g.fillRect(EIXO_X[i], EIXO_Y[i], pTabuleiro, pTabuleiro);
         }
             else {
-                g.setColor(new Color(82, 236, 243));
+                g.setColor(new Color(77, 120, 247));
                 g.fillRect(EIXO_X[i], EIXO_Y[i], pTabuleiro, pTabuleiro);
             }
         }
@@ -177,12 +177,12 @@ public class TelaJogo extends JPanel implements ActionListener {
             if(EIXO_X[0] == EIXO_X[i] && EIXO_Y[0] == EIXO_Y[i]) // verifica se a cobra bateu no próprio corpo
                 isRunning = false;
         }
-        if(EIXO_X[0] < 0  || EIXO_X[0] > LAR) // Se a cobra ultrapassar os limites da tela(bater em um dos lados)
+        if(EIXO_X[0] < 0  || EIXO_X[0] >= LAR) // Se a cobra ultrapassar os limites da tela(bater em um dos lados)
         {
             isRunning = false;
         }
 
-        if(EIXO_Y[0] < 0  || EIXO_Y[0] > ALT ) // Se a cobra ultrapassar os limites de altura
+        if(EIXO_Y[0] < 0  || EIXO_Y[0] >= ALT ) // Se a cobra ultrapassar os limites de altura
             isRunning = false;
     }
 }
