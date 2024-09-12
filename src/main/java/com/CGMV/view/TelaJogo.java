@@ -3,6 +3,7 @@ package com.CGMV.view;
 import com.CGMV.Controler.GameKeyListener;
 import com.CGMV.Entities.Cobra;
 import com.CGMV.Entities.Fruta;
+import com.CGMV.Jogo.Game;
 
 import javax.swing.*;
 import java.awt.*;
@@ -92,22 +93,22 @@ public class TelaJogo extends JPanel implements ActionListener {
 
 
             g.setColor(Color.red);
-        g.setColor(Color.red); // cor da fruta
-        g.fillOval(fruta.getIdX(),fruta.getIdY(),pTabuleiro,pTabuleiro); // desenha a fruta na posição dela com o tamanho proporcional ao tabuleiro
+            g.setColor(Color.red); // cor da fruta
+            g.fillOval(fruta.getIdX(),fruta.getIdY(),pTabuleiro,pTabuleiro); // desenha a fruta na posição dela com o tamanho proporcional ao tabuleiro
 
-        for(int i = 0; i < cobra.getTamCobra(); i++) {
-            if (i == 0) { // desenha a cabeça da cobra
-                g.setColor(new Color(33, 5, 104));
-                g.fillRect(EIXO_X[0], EIXO_Y[0], pTabuleiro, pTabuleiro);
-            } else if(i % 2 == 0) { // desenha o corpo dela
-            g.setColor(new Color(77, 120, 247));
-            g.fillRect(EIXO_X[i], EIXO_Y[i], pTabuleiro, pTabuleiro);
-        }
-            else {
+            for(int i = 0; i < cobra.getTamCobra(); i++) {
+                if (i == 0) { // desenha a cabeça da cobra
+                    g.setColor(new Color(33, 5, 104));
+                    g.fillRect(EIXO_X[0], EIXO_Y[0], pTabuleiro, pTabuleiro);
+                } else if(i % 2 == 0) { // desenha o corpo dela
                 g.setColor(new Color(77, 120, 247));
                 g.fillRect(EIXO_X[i], EIXO_Y[i], pTabuleiro, pTabuleiro);
+                }
+                else {
+                    g.setColor(new Color(77, 120, 247));
+                    g.fillRect(EIXO_X[i], EIXO_Y[i], pTabuleiro, pTabuleiro);
+                }
             }
-        }
 
       /*  for(int i =0; i<ALT; i++)
         {
@@ -130,7 +131,7 @@ public class TelaJogo extends JPanel implements ActionListener {
         }
         else
         {
-            System.out.println("Acabou");
+            TelaFimDeJogo fim = new TelaFimDeJogo();
             timer.stop();
         }
     }
