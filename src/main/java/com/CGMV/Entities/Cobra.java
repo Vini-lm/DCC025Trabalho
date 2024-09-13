@@ -1,6 +1,6 @@
 package com.CGMV.Entities;
 
-public class Cobra {
+public  class Cobra {
     private final int SPEED = 60;
     private int tamCobra;
     private int frutasComidas;
@@ -14,19 +14,13 @@ public class Cobra {
         estaViva = true;
     }
 
-    public int getSPEED() {
-        return SPEED;
-    }
+    public int getSPEED() {return SPEED;}
 
-    public char getDir()
-    {return direcao;}
+    public char getDir() {return direcao;}
 
-    public void setDir(char dir)
-    {direcao = dir;}
+    public void setDir(char dir) {direcao = dir;}
 
-    public int getTamCobra() {
-        return tamCobra;
-    }
-    public void feed()
-    {tamCobra++;}
+    public int getTamCobra() {return tamCobra;}
+
+    public void feed(Fruta fruta) {tamCobra += fruta.getPoints();}
 }
