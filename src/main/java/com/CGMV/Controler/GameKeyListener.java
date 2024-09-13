@@ -17,46 +17,25 @@ public GameKeyListener(Cobra cobra){this.cobra = cobra;} // referencia para a co
 
             switch (e.getKeyCode())
             {
-               case KeyEvent.VK_UP:
+               case KeyEvent.VK_UP,KeyEvent.VK_W:
                    if(cobra.getDir() != 'B')
                        cobra.setDir('C');
                     break;
 
-               case KeyEvent.VK_DOWN:
+                case KeyEvent.VK_LEFT,KeyEvent.VK_A:
+                    if(cobra.getDir() != 'D')
+                        cobra.setDir('E');
+                    break;
+
+               case KeyEvent.VK_DOWN, KeyEvent.VK_S:
                    if(cobra.getDir() != 'C')
                        cobra.setDir('B');
                    break;
 
-               case KeyEvent.VK_LEFT:
-                   if(cobra.getDir() != 'D')
-                       cobra.setDir('E');
-
-              case KeyEvent.VK_RIGHT:
+              case KeyEvent.VK_RIGHT,KeyEvent.VK_D:
                   if(cobra.getDir() != 'E')
                       cobra.setDir('D');
                   break;
-
-               case KeyEvent.VK_W:
-                   if(cobra.getDir() != 'B')
-                       cobra.setDir('C');
-                    break;
-
-               case KeyEvent.VK_A:
-                   if(cobra.getDir() != 'D')
-                       cobra.setDir('E');
-                   break;
-
-               case KeyEvent.VK_S:
-                   if(cobra.getDir() != 'C')
-                       cobra.setDir('B');
-                    break;
-
-               case KeyEvent.VK_D:
-                   if(cobra.getDir() != 'E')
-                       cobra.setDir('D');
-                   break;
-
-
 
             }
     }
