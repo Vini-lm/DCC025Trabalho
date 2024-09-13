@@ -1,17 +1,19 @@
 package com.CGMV.Entities;
 
-public class Fruta {
+import java.awt.*;
+
+public abstract class Fruta {
     private final int TAM_FRUTA = 50;
     private int idX;
     private int idY;
-    private String nome;
+    protected String texture;
+    protected Color cor;
+   // private int points;
 
 
-    public Fruta(String nome)
-    {
-     this.nome = nome;
-    }
 
+    public int getPoints()
+    {return 1;}
 
     public void setIdX(int idX) {
         this.idX = idX;
@@ -28,4 +30,10 @@ public class Fruta {
     public int getIdY() {
         return idY;
     }
+
+    public String getTexture() {
+        return texture;
+    }
+
+    public Color getColor(){return cor;}
 }
