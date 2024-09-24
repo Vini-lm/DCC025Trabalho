@@ -21,7 +21,8 @@ public class Uva extends Fruta{
         return 2;
     }
 
+    @Override
+    public void bonus() {
 
-
-
+    }
 }
