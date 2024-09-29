@@ -1,18 +1,19 @@
 package com.CGMV.Jogo;
 
-import com.CGMV.view.TelaJogo;
+import com.CGMV.view.panel.TelaJogo;
 
 import javax.swing.*;
 
 public class Game extends JFrame {
 
 
-    public static void main() { new Game();}
+
+
 
 
     public Game()
     {
-        add(new TelaJogo()); // adiciona o painel da tela do jogo na tela
+        //add(new TelaJogo()); // adiciona o painel da tela do jogo na tela
         setTitle("Jogo");
         setResizable(false);
         pack();
@@ -21,6 +22,8 @@ public class Game extends JFrame {
         setVisible(true);
 
     }
+
+
 
 
 }
