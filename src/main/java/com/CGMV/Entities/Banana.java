@@ -6,8 +6,8 @@ public class Banana extends Fruta{
 
 
     @Override
-    public int getPoints() {
-        return 5;
+    public int getPoints( ) {
+        return 1;
     }
 
     @Override

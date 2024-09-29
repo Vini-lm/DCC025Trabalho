@@ -3,7 +3,10 @@ package com.CGMV.Entities;
 import java.awt.*;
 
 public class Maca  extends Fruta{
+    @Override
+    public void bonus() {
 
+    }
 
     public Maca()
     {

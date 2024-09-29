@@ -1,7 +1,11 @@
 package com.CGMV.Entities;
 
+import com.CGMV.view.panel.TelaJogo;
+
+import javax.swing.*;
+
 public  class Cobra {
-    private final int SPEED = 60;
+    private  int SPEED = 45;
     private int tamCobra;
     private int frutasComidas;
     private char direcao;  // Direita, Esquerda, Cima, Baixo...
@@ -22,5 +26,14 @@ public  class Cobra {
 
     public int getTamCobra() {return tamCobra;}
 
-    public void feed(Fruta fruta) {tamCobra += fruta.getPoints();}
+    public void feed(Fruta fruta, TelaJogo panel) {tamCobra += fruta.getPoints(); this.frutasComidas+= fruta.getPoints();}
+
+    public int getScore() {return this.frutasComidas;}
+
+    public void kill(){this.estaViva = false;}
+
+
+    public boolean isAlive(){return this.estaViva;}
+
+    public void setSpeed(int speed){ this.SPEED -= speed;}
 }

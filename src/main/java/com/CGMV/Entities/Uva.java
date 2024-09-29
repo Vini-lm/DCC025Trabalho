@@ -15,9 +15,8 @@ public class Uva extends Fruta{
        this.texture = "";
        this.cor = new Color(152, 5, 205);
    }
-
     @Override
-    public int getPoints() {
+    public int getPoints( ) {
         return 2;
     }
 
