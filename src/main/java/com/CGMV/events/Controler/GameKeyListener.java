@@ -1,4 +1,4 @@
-package com.CGMV.Controler;
+package com.CGMV.events.Controler;
 
 import com.CGMV.Entities.Cobra;
 
