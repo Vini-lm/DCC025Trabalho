@@ -36,4 +36,6 @@ public abstract class Fruta {
     }
 
     public Color getColor(){return cor;}
+
+    public abstract void bonus();
 }
