@@ -1,4 +1,4 @@
-package com.CGMV.persistence.profile;
+package com.CGMV.Entities.profile;
 
 import com.CGMV.Entities.Cobra;
 import com.CGMV.persistence.Config;
@@ -6,10 +6,9 @@ import com.CGMV.persistence.Data;
 
 public abstract class User {
 
-
-
     protected String name;
     protected Data data;
+    protected Config config;
 
 
     public User(String name) {this.name = name;
@@ -26,4 +25,13 @@ public abstract class User {
         data.saveScore(cobra,this);
     }
 
+    public abstract void init();
+
+
+    public void setConfig(Config config){this.config = config;}
+
+
+    public Config getConfig() {
+        return config;
+    }
 }
