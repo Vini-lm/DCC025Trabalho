@@ -30,18 +30,18 @@ public class TelaInformativa extends JPanel {
         label1.setFont(new Font("Arial", Font.BOLD, 40));
 
         label2 = new JLabel("-> Frutas");
-        label2.setBounds(30 ,80,600,100);
+        label2.setBounds(30 ,80,700,100);
         label2.setFont(new Font("Arial", Font.BOLD, 30));
 
-        label3 = new JLabel("* Maçã: ");
-        label3.setBounds(50 ,120,600,100);
+        label3 = new JLabel("* Maçã: Torna a cobra invencível até alcançar outra fruta.");
+        label3.setBounds(50 ,120,700,100);
         label3.setFont(new Font("Arial", Font.BOLD, 20));
 
-        label4 = new JLabel("* Banana: a ");
-        label4.setBounds(50 ,160,600,100);
+        label4 = new JLabel("* Banana: Aumenta o corpo da cobra em 1 unidade. ");
+        label4.setBounds(50 ,160,700,100);
         label4.setFont(new Font("Arial", Font.BOLD, 20));
 
-        label5 = new JLabel("* Uva: a");
+        label5 = new JLabel("* Uva: Aumenta a velocidade da cobra até alcançar outra fruta. ");
         label5.setBounds(50 ,200,600,100);
         label5.setFont(new Font("Arial", Font.BOLD, 20));
 
@@ -69,7 +69,6 @@ public class TelaInformativa extends JPanel {
         button.setBounds(590,530,150,25);
         button.setToolTipText("Clique para voltar à tela anterior.");
         button.addActionListener(new VoltarTelaInicial(button, main, user));
-
 
 
 
