@@ -2,8 +2,8 @@ package com.CGMV.view.panel;
 
 import com.CGMV.events.CriarUsuario;
 import com.CGMV.events.PadronizarUsuario;
-import com.CGMV.persistence.profile.Default;
-import com.CGMV.persistence.profile.User;
+import com.CGMV.Entities.profile.User;
+import com.CGMV.view.frame.MainScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +17,7 @@ public class TelaUsuario extends JPanel implements ActionListener {
     private JButton criaUser;
     private JLabel label1;
 
-    public TelaUsuario(JFrame main, User user) {
+    public TelaUsuario(MainScreen main, User user) {
         setPreferredSize(new Dimension(LAR, ALT));
         userPadrao = new JButton("Usuário Padrão");
         criaUser = new JButton("Criar Usuário");
@@ -29,7 +29,7 @@ public class TelaUsuario extends JPanel implements ActionListener {
         add(userPadrao);
         add(criaUser);
         userPadrao.addActionListener(new PadronizarUsuario(userPadrao,main,user));
-        criaUser.addActionListener(new CriarUsuario(criaUser,main,user));
+        criaUser.addActionListener(new CriarUsuario(main,criaUser,user));
         label1 = new JLabel("Escolha seu usuário",JLabel.CENTER);
         label1.setBounds(100 ,50,600,100);
         label1.setFont(new Font("Arial", Font.BOLD, 30));

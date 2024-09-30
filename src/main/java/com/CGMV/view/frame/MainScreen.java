@@ -1,13 +1,20 @@
 package com.CGMV.view.frame;
 
-import com.CGMV.persistence.profile.User;
-import com.CGMV.view.panel.TelaEscolha;
-import com.CGMV.view.panel.TelaInicial;
+import com.CGMV.Entities.profile.User;
 import com.CGMV.view.panel.TelaUsuario;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainScreen extends JFrame {
+
+
+    private JList<User> litauser;
+
+
+
+
 
 
 
@@ -23,9 +30,6 @@ public class MainScreen extends JFrame {
         setVisible(true);
 
     }
-
-
-
 
 
 }

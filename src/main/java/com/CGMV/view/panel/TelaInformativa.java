@@ -1,8 +1,10 @@
 package com.CGMV.view.panel;
 
+import com.CGMV.Entities.profile.User;
 import com.CGMV.events.InformarJogo;
 import com.CGMV.events.VoltarTelaInicial;
-import com.CGMV.persistence.profile.User;
+import com.CGMV.view.frame.MainScreen;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,7 +23,7 @@ public class TelaInformativa extends JPanel {
     private JLabel label10;
     private JButton button;
 
-    public TelaInformativa(JFrame main, User user){
+    public TelaInformativa(MainScreen main, User user){
         setLayout(null);
         label1 = new JLabel("Regras");
         label1.setBounds(340 ,10,600,100);

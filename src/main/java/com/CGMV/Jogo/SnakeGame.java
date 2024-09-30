@@ -2,7 +2,7 @@ package com.CGMV.Jogo;
 
 
 import com.CGMV.persistence.Config;
-import com.CGMV.persistence.profile.Adm;
+import com.CGMV.Entities.profile.Adm;
 import com.CGMV.view.frame.MainScreen;
 
 

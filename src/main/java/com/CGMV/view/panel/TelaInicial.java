@@ -2,7 +2,8 @@ package com.CGMV.view.panel;
 
 import com.CGMV.events.IniciarJogo;
 import com.CGMV.events.InformarJogo;
-import com.CGMV.persistence.profile.User;
+import com.CGMV.Entities.profile.User;
+import com.CGMV.view.frame.MainScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,18 +20,18 @@ public class TelaInicial extends JPanel {
 
 
 
-    public TelaInicial(JFrame main, User user) {
+    public TelaInicial(MainScreen main, User user) {
         setPreferredSize(new Dimension(LAR,ALT));
         setFocusable(true);
         setLayout(null);
         button = new JButton("Iniciar jogo");
         button.setBounds(350 ,275,100,50);
         button.setToolTipText("Clique para iniciar jogo");
-        button.addActionListener(new IniciarJogo(button,this, main,user));
+        button.addActionListener(new IniciarJogo(main,this,button, user));
         button2 = new JButton("Sobre o jogo");
         button2.setBounds(500,500,150,25);
         button2.setToolTipText("Clique para ver informações sobre o jogo.");
-        button2.addActionListener(new InformarJogo(button2,this, main,user));
+        button2.addActionListener(new InformarJogo(main,this,button2,user));
 
         label1 = new JLabel("Bem vindo ao Jogo da Cobrinha!!",JLabel.CENTER);
         label1.setBounds(100 ,50,600,100);

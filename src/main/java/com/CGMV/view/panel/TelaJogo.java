@@ -1,12 +1,11 @@
 package com.CGMV.view.panel;
 
+import com.CGMV.Entities.*;
 import com.CGMV.events.Controler.GameKeyListener;
-import com.CGMV.Entities.Banana;
-import com.CGMV.Entities.Cobra;
-import com.CGMV.Entities.Fruta;
-import com.CGMV.Entities.Uva;
-import com.CGMV.persistence.profile.Default;
-import com.CGMV.persistence.profile.User;
+import com.CGMV.Entities.profile.Default;
+import com.CGMV.Entities.profile.User;
+import com.CGMV.persistence.Config;
+import com.CGMV.view.frame.MainScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +20,7 @@ public class TelaJogo extends JPanel  {
     private final int ALT = 600;
     private int pTabuleiro = 25;
     private int unidades = (LAR*ALT)/(pTabuleiro*pTabuleiro);
-    private JFrame main;
+    private MainScreen main;
     private User user;
 
 
@@ -51,10 +50,7 @@ public class TelaJogo extends JPanel  {
 
 
     //4
-    private boolean dlinhas;
-    private boolean dpcorpo;
-    private boolean showfps;
-    private boolean fulltab;
+    private Config config;
 
 
 
@@ -65,14 +61,14 @@ public class TelaJogo extends JPanel  {
 
 
 
-    public TelaJogo(JFrame main)
+
+    public TelaJogo(MainScreen main)
     {
         this.cobra = new Cobra();
-        this.fruta = new Uva();
+        this.fruta = new Uva("uva");
         this.random = new Random();
         this.FONTE = new Font("Times New Roman", Font.PLAIN, 20);
-        this.dlinhas = false;
-        this.dpcorpo = false;
+        this.config = new Config();
         this.user = new Default("guest");
         this.main = main;
 
@@ -80,7 +76,7 @@ public class TelaJogo extends JPanel  {
         this.cCorpo = new Color(77, 120, 247);
         this.cCorpo2 = cCorpo;
 
-        this.showfps = false;
+
 
         setFocusable(true);
         setPreferredSize(new Dimension(LAR,ALT));
@@ -91,17 +87,18 @@ public class TelaJogo extends JPanel  {
     }
 
 
-    public TelaJogo(User user, JFrame main)
+    public TelaJogo(User user, MainScreen main)
     {
         this(main);
 
         if(!(user instanceof Default)) {
-            this.dlinhas = (user.getData().loadconfig(user, 0) != 0);
-            this.dpcorpo = (user.getData().loadconfig(user, 1) != 0);
-            this.showfps = (user.getData().loadconfig(user, 2) != 0);
+            if(user != null) {
+               this.config = user.getConfig();
+            }
+            else System.out.println("Usuário nulo");
 
 
-            System.out.println("Valor de " + dlinhas + " Valor de " + dpcorpo + " Valor de " + showfps);
+            System.out.println("Valor de " + config.getDlinhas() + " Valor de " + config.getDpcorpo() + " Valor de " + config.getShowfps());
 
             if (cCorpo != null)
                 this.cCorpo = cCorpo;
@@ -134,7 +131,7 @@ public class TelaJogo extends JPanel  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 repaint();
-            if(showfps)
+            if(config.getShowfps())
                 checkFps();
             }
         });
@@ -161,13 +158,13 @@ public class TelaJogo extends JPanel  {
         {
 
             desenhaFundo(g);
-            if(dlinhas)
+            if(config.getDlinhas())
                 desenhaLinhas(g);
 
             desenhaFruta(g);
 
             desenhaCobra(g);
-            if(dpcorpo)
+            if(config.getDpcorpo())
                 desenhaPCorpo(g);
 
 
@@ -202,11 +199,11 @@ public class TelaJogo extends JPanel  {
 
     private void desenhaFruta(Graphics g)
     {
-        // g.drawImage(new ImageIcon(fruta.getTexture()).getImage(),fruta.getIdX(), fruta.getIdY(),pTabuleiro,pTabuleiro + 5, this);
+         g.drawImage(new ImageIcon(fruta.getTexture()).getImage(),fruta.getIdX(), fruta.getIdY(),pTabuleiro,pTabuleiro + 5, this);
 
-        g.setColor(fruta.getColor());
+        //g.setColor(fruta.getColor());
 
-        g.fillOval(fruta.getIdX(),fruta.getIdY(),pTabuleiro,pTabuleiro); // desenha a fruta na posição dela com o tamanho proporcional ao tabuleiro
+       // g.fillOval(fruta.getIdX(),fruta.getIdY(),pTabuleiro,pTabuleiro); // desenha a fruta na posição dela com o tamanho proporcional ao tabuleiro
     }
 
 
@@ -325,12 +322,12 @@ public class TelaJogo extends JPanel  {
             cobra.feed(fruta, this); // aumenta o tamanho dela
 
             if(fruta instanceof Uva) { // se a fruta for uva
-                fruta = new Banana();
+                fruta = new Maca("maca");
 
-                timer.setDelay(20);
+                fruta.bonus(timer,false);
             }// faz a fruta ser uma banana
-            else if(fruta instanceof Banana) {// se a fruta for uma banana
-                fruta = new Uva(); // faz fruta ser uma uva
+            else if(fruta instanceof Maca) {// se a fruta for uma banana
+                fruta = new Uva("uva"); // faz fruta ser uma uva
                 timer.setDelay(cobra.getSPEED());
             }
 
@@ -349,6 +346,15 @@ public class TelaJogo extends JPanel  {
                 setFrutaPos();
 
         }
+        if(config.getFulltab())
+            checkLimite();
+        else
+            checkBatida();
+
+    }
+
+
+    private void checkBatida(){
         if(EIXO_X[0] < 0  || EIXO_X[0] >= LAR) // Se a cobra ultrapassar os limites da tela(bater em um dos lados)
         {
             isRunning = false;
@@ -356,8 +362,23 @@ public class TelaJogo extends JPanel  {
 
         if(EIXO_Y[0] < 0  || EIXO_Y[0] >= ALT ) // Se a cobra ultrapassar os limites de altura
             isRunning = false;
+
     }
 
+
+    private void checkLimite()
+    {
+        if(EIXO_X[0] < 0) // Se a cobra ultrapassar os limites da tela(bater em um dos lados)
+            EIXO_X[0] = LAR - pTabuleiro;
+
+        else if( EIXO_X[0] >= LAR)
+            EIXO_X[0] = 0;
+
+        if(EIXO_Y[0] < 0) // Se a cobra ultrapassar os limites de altura
+            EIXO_Y[0] = ALT - pTabuleiro;
+        else if(EIXO_Y[0] >= ALT)
+            EIXO_Y[0] = 0;
+    }
 
 
 }

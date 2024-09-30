@@ -1,10 +1,12 @@
-package com.CGMV.persistence.profile;
+package com.CGMV.Entities.profile;
 
 import com.CGMV.persistence.Config;
 
 public class Default extends User{
+    @Override
+    public void init() {
 
-
+    }
 
     private Config config;
 

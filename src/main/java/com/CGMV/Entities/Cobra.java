@@ -1,8 +1,7 @@
 package com.CGMV.Entities;
 
+import com.CGMV.Entities.profile.User;
 import com.CGMV.view.panel.TelaJogo;
-
-import javax.swing.*;
 
 public  class Cobra {
     private  int SPEED = 45;
@@ -32,8 +31,10 @@ public  class Cobra {
 
     public void kill(){this.estaViva = false;}
 
-
     public boolean isAlive(){return this.estaViva;}
 
     public void setSpeed(int speed){ this.SPEED -= speed;}
+
+
+
 }

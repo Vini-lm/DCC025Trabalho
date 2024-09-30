@@ -1,6 +1,8 @@
 package com.CGMV.events;
 
-import com.CGMV.persistence.profile.User;
+
+import com.CGMV.Entities.profile.User;
+import com.CGMV.view.frame.MainScreen;
 import com.CGMV.view.panel.TelaInformativa;
 import com.CGMV.view.panel.TelaInicial;
 import com.CGMV.view.panel.TelaJogo;
@@ -11,27 +13,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
-public class VoltarTelaInicial implements ActionListener {
-    private final JFrame frame;
-    private JPanel panel;
-    private User user;
-    private JButton button;
+public class VoltarTelaInicial extends GameEvents {
 
-    public VoltarTelaInicial(JButton button, JFrame frame, User user) {
-        this.button = button;
-        this.frame = frame;
-        this.user = user;
+
+    public VoltarTelaInicial(JButton button, MainScreen frame, User user) {
+      super(frame,button,user);
     }
-    public VoltarTelaInicial(JFrame frame, User user) {
-        this.frame = frame;
-        this.user = user;
+    public VoltarTelaInicial(MainScreen frame, User user) {
+      super(frame,user);
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        this.panel = new TelaInicial(frame,user);
+        this.panel = new TelaUsuario(frame,user);
         frame.setContentPane(panel);
         panel.requestFocusInWindow();
         frame.revalidate();

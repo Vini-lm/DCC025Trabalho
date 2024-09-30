@@ -2,7 +2,8 @@ package com.CGMV.view.panel;
 
 import com.CGMV.events.JogarNovamente;
 import com.CGMV.events.VoltarTelaInicial;
-import com.CGMV.persistence.profile.User;
+import com.CGMV.Entities.profile.User;
+import com.CGMV.view.frame.MainScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class TelaFimDeJogo extends JPanel {
     private JButton jgNov;
     private JButton voltar;
 
-    public TelaFimDeJogo(JFrame main, User user) {
+    public TelaFimDeJogo(MainScreen main, User user) {
 
         setPreferredSize(new Dimension(LAR, ALT));
         setLayout(null);

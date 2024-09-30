@@ -1,7 +1,8 @@
 package com.CGMV.persistence;
 
 import com.CGMV.Entities.Cobra;
-import com.CGMV.persistence.profile.User;
+import com.CGMV.Entities.profile.User;
+import com.google.gson.Gson;
 
 import java.io.*;
 
@@ -42,10 +43,13 @@ public class Data {
             if(!sconfig.exists())
                 sconfig.createNewFile();
 
+            Gson gson = new Gson();
+            String json = gson.toJson(config);
+
             FileWriter fw = new FileWriter(sconfig);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(config.toString());
-            bw.close();
+            fw.write(json);
+
+            fw.close();
         }
         catch (Exception e)
         {
@@ -59,14 +63,36 @@ public class Data {
     {
         try{
             File sconfig = new File(local + "/"  + user.getName() + "_score" );
-
+/*
             if(!sconfig.exists())
                 sconfig.createNewFile();
 
             FileWriter fw = new FileWriter(sconfig);
             BufferedWriter bw = new BufferedWriter(fw);
+
+
             bw.write(String.valueOf(cobra.getScore()));
+
             bw.close();
+
+ */
+
+            Gson gson = new Gson();
+
+            String json = gson.toJson("{nome:" + user.getName() + "," + "score:" + cobra.getScore() + "}");
+
+
+
+
+            try(FileWriter fw = new FileWriter(sconfig,true) )
+            {
+                fw.write(json + System.lineSeparator());
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+
         }
         catch (Exception e)
         {
@@ -85,7 +111,7 @@ public class Data {
     }
 
 
-    public int loadconfig(User user, int i){
+    public Config loadconfig(User user){
 
 
         try{
@@ -93,23 +119,13 @@ public class Data {
 
             if(!sconfig.exists()) {
                 System.out.println("Erro!");
-                return 0;
+                return null;
             }
 
-            FileReader fr = new FileReader(sconfig);
-            BufferedReader br = new BufferedReader(fr);
+           Gson gson = new Gson();
 
-            String temp;
-
-            for(int j = 0; (temp = br.readLine()) != null; j++){
-                if(j == i) {
-                    br.close();
-                    if(temp.equals("false"))
-                        return 0;
-                    else
-                        return 1;
-                }
-            }
+           BufferedReader br = new BufferedReader(new FileReader(sconfig));
+           return gson.fromJson(br.readLine(), Config.class);
 
         }
         catch (Exception e)
@@ -118,7 +134,7 @@ public class Data {
             System.out.println(e.getMessage());
         }
 
-        return 0;
+        return null;
 
     }
 

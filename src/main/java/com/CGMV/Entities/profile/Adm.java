@@ -1,10 +1,10 @@
-package com.CGMV.persistence.profile;
+package com.CGMV.Entities.profile;
 
 import com.CGMV.persistence.Config;
 
 public class Adm extends User{
 
-    private Config config;
+
 
     public Adm(String nome,Config config) {
         super(nome);
@@ -17,7 +17,7 @@ public class Adm extends User{
         return config;
     }
 
-
+    @Override
     public void init(){
         //this.data.mkdiruser(this);
         this.data.saveConfig(this.config,this);
