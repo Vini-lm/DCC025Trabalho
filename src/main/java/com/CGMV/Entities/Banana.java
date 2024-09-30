@@ -1,22 +1,21 @@
 package com.CGMV.Entities;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Banana extends Fruta{
 
 
-    @Override
-    public int getPoints( ) {
-        return 1;
-    }
+
 
     @Override
-    public void bonus() {
+    public void bonus(Timer timer, boolean invi) {
 
     }
 
-    public Banana()
-    {this.texture = "";
+    public Banana(String nome)
+    {
+     super(nome);
      this.cor = new Color(231, 239, 12);
     }
 }

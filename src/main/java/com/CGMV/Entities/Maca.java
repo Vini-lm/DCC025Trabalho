@@ -1,16 +1,20 @@
 package com.CGMV.Entities;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Maca  extends Fruta{
+
+
+
     @Override
-    public void bonus() {
+    public void bonus(Timer timer, boolean invi) {
 
     }
 
-    public Maca()
+    public Maca(String nome)
     {
-        this.texture = "";
+        super(nome);
         this.cor = new Color(221, 5, 45);
     }
 

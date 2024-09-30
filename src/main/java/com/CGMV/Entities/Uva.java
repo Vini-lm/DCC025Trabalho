@@ -1,7 +1,9 @@
 package com.CGMV.Entities;
 
 
+import javax.swing.*;
 import java.awt.*;
+
 
 public class Uva extends Fruta{
 
@@ -10,9 +12,9 @@ public class Uva extends Fruta{
 
 
 
-   public Uva()
+   public Uva(String nome)
    {
-       this.texture = "";
+       super(nome);
        this.cor = new Color(152, 5, 205);
    }
     @Override
@@ -21,7 +23,7 @@ public class Uva extends Fruta{
     }
 
     @Override
-    public void bonus() {
-
+    public void bonus(Timer timer, boolean invi) {
+       timer.setDelay(30);
     }
 }

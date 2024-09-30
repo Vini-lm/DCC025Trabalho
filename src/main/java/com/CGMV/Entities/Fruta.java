@@ -1,15 +1,22 @@
 package com.CGMV.Entities;
 
+import javax.swing.*;
 import java.awt.*;
 
+
 public abstract class Fruta {
-    private final int TAM_FRUTA = 50;
+
     private int idX;
     private int idY;
     protected String texture;
     protected Color cor;
    // private int points;
 
+
+public Fruta(String nome)
+{
+    this.texture = "textures/frutas" + "/" + nome + ".png";
+}
 
 
     public int getPoints()
@@ -37,5 +44,5 @@ public abstract class Fruta {
 
     public Color getColor(){return cor;}
 
-    public abstract void bonus();
+    public abstract void bonus(Timer timer, boolean invi);
 }
