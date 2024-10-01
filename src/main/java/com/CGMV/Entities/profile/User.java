@@ -34,4 +34,9 @@ public abstract class User {
     public Config getConfig() {
         return config;
     }
+
+    public void save(Config config){data.saveConfig(config,this);}
+
+
+    public void setNome(String nome){this.name = nome;}
 }
