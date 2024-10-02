@@ -6,10 +6,8 @@ import java.awt.*;
 public class Banana extends Fruta{
 
 
-
-
     @Override
-    public void bonus(Timer timer, boolean invi) {
+    public void bonus(Timer timer, Cobra cobra) {
 
     }
 

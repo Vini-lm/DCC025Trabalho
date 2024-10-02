@@ -10,12 +10,17 @@ public abstract class Fruta {
     private int idY;
     protected String texture;
     protected Color cor;
+    protected boolean invi;
+    protected int duration;
+
    // private int points;
 
 
 public Fruta(String nome)
 {
     this.texture = "textures/frutas" + "/" + nome + ".png";
+    this.invi = false;
+    this.duration = 100;
 }
 
 
@@ -44,5 +49,9 @@ public Fruta(String nome)
 
     public Color getColor(){return cor;}
 
-    public abstract void bonus(Timer timer, boolean invi);
+    public abstract void bonus(Timer timer, Cobra cobra);
+
+
+
+
 }

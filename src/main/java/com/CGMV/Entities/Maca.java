@@ -8,8 +8,9 @@ public class Maca  extends Fruta{
 
 
     @Override
-    public void bonus(Timer timer, boolean invi) {
+    public void bonus(Timer timer, Cobra cobra) {
 
+        cobra.setInvi(true);
     }
 
     public Maca(String nome)

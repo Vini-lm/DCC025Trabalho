@@ -3,18 +3,23 @@ package com.CGMV.Entities;
 import com.CGMV.Entities.profile.User;
 import com.CGMV.view.panel.TelaJogo;
 
+import javax.swing.*;
+
 public  class Cobra {
     private  int SPEED = 45;
     private int tamCobra;
     private int frutasComidas;
     private char direcao;  // Direita, Esquerda, Cima, Baixo...
-    private boolean estaViva;
+    private boolean invi;
+    private Timer timer;
+    private int Duration;
 
-    public Cobra() {
+    public Cobra(Timer timer) {
         tamCobra = 4;
         frutasComidas = 0;
         direcao = 'D';
-        estaViva = true;
+        invi = false;
+        this.timer = timer;
     }
 
     public int getSPEED() {return SPEED;}
@@ -29,12 +34,18 @@ public  class Cobra {
 
     public int getScore() {return this.frutasComidas;}
 
-    public void kill(){this.estaViva = false;}
-
-    public boolean isAlive(){return this.estaViva;}
-
     public void setSpeed(int speed){ this.SPEED -= speed;}
 
+    public boolean getInvi(){
+        return this.invi;
+    }
 
+    public void setInvi(Boolean invi){this.invi = invi;}
+
+    public Timer getTimer(){return timer;}
+
+    public void setTimer(Timer timer){this.timer = timer;}
+
+    public void teste(){this.timer.setDelay(1000);}
 
 }
