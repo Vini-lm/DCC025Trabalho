@@ -9,20 +9,16 @@ public class Config {
     private  boolean dpcorpo;
     private  boolean showfps;
     private  boolean fulltab;
-    private  Color corc;
-    private  Color corcorpo;
     private int Score;
 
 
 
 
-    public Config(boolean dlinhas, boolean dpcorpo, boolean showfps, boolean fulltab, Color corc, Color corcorpo, String nomem) {
+    public Config(boolean dlinhas, boolean dpcorpo, boolean showfps, boolean fulltab, String nome){
         this.dlinhas = dlinhas;
         this.dpcorpo = dpcorpo;
         this.showfps = showfps;
         this.fulltab = fulltab;
-        this.corc = corc;
-        this.corcorpo = corcorpo;
         this.Score = Score;
         this.nome = nome;
 
@@ -46,31 +42,22 @@ public class Config {
         return fulltab;
     }
 
-    public Color getCorc() {
-        return corc;
-    }
 
-    public Color getCorcorpo() {
-        return corcorpo;
-    }
 
     public Config() {
         this.dlinhas = false;
         this.dpcorpo = false;
         this.showfps = false;
         this.fulltab = false;
-        this.corc = new Color(0,0,0);
-        this.corcorpo = new Color(0,0,0);
+
     }
 
-    public void update(boolean dlinhas, boolean dpcorpo, boolean showfps, boolean fulltab, Color corc,Color corcorpo,String nome){
+    public void update(boolean dlinhas, boolean dpcorpo, boolean showfps, boolean fulltab,String nome){
 
         this.dlinhas = dlinhas;
         this.dpcorpo = dpcorpo;
         this.showfps = showfps;
         this.fulltab = fulltab;
-        this.corc = corc;
-        this.corcorpo = corcorpo;
         this.nome = nome;
 
 
@@ -80,7 +67,7 @@ public class Config {
     @Override
     public String toString() {
         return Boolean.toString(dlinhas) + "\n" + Boolean.toString(dpcorpo) + "\n"
-             + Boolean.toString(showfps) + "\n" + Boolean.toString(fulltab) + "\n";
+                + Boolean.toString(showfps) + "\n" + Boolean.toString(fulltab) + "\n";
 
 
     }
