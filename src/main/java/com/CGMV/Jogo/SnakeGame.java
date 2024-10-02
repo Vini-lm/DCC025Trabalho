@@ -1,6 +1,7 @@
 package com.CGMV.Jogo;
 
 
+import com.CGMV.Entities.profile.User;
 import com.CGMV.persistence.Config;
 import com.CGMV.Entities.profile.Adm;
 import com.CGMV.view.frame.MainScreen;
@@ -17,14 +18,18 @@ public class SnakeGame {
         //teste.draw();
         //Game game = new Game();
 
-        Config teste = new Config(false,true,false,false,null,null);
+        /*
+        Config teste = new Config(false,true,false,false,null,null,"teste");
         Adm teste1 = new Adm("teste", teste);
+
 
         teste1.init();
 
 
+         */
 
-        MainScreen mainScreen = new MainScreen(teste1);
+
+        MainScreen mainScreen = new MainScreen(null);
 
 
     }

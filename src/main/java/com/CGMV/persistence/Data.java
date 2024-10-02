@@ -44,10 +44,11 @@ public class Data {
                 sconfig.createNewFile();
 
             Gson gson = new Gson();
+
             String json = gson.toJson(config);
 
             FileWriter fw = new FileWriter(sconfig);
-            fw.write(json);
+            fw.write(json );
 
             fw.close();
         }
@@ -63,19 +64,7 @@ public class Data {
     {
         try{
             File sconfig = new File(local + "/"  + user.getName() + "_score" );
-/*
-            if(!sconfig.exists())
-                sconfig.createNewFile();
 
-            FileWriter fw = new FileWriter(sconfig);
-            BufferedWriter bw = new BufferedWriter(fw);
-
-
-            bw.write(String.valueOf(cobra.getScore()));
-
-            bw.close();
-
- */
 
             Gson gson = new Gson();
 

@@ -17,18 +17,17 @@ public class SalvarConfig extends GameEvents{
 
 
 
-    public SalvarConfig(MainScreen main, TelaEscolha panel, Config config) {
+    public SalvarConfig(MainScreen main, TelaEscolha panel, User user, Config config) {
        super(main,panel,config);
-        this.user = new Adm("teste",config);
+        this.user = user;
     }
 
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        sec.updateConfig();
-        user.init();
-        panel = new TelaJogo(user,frame);
+        this.user = sec.updateConfig();
+        panel = new TelaJogo(this.user,frame);
         frame.setContentPane(panel);
         panel.requestFocusInWindow();
         frame.revalidate();
