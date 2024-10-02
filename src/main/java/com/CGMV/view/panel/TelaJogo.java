@@ -53,7 +53,7 @@ public class TelaJogo extends JPanel  {
 
     //4
     private Config config;
-    private int bonusDuration;
+
 
 
 
@@ -63,8 +63,9 @@ public class TelaJogo extends JPanel  {
     public TelaJogo(MainScreen main)
     {
 
-        this.delay = 45;
+
         this.cobra = new Cobra(null);
+        this.delay = cobra.getSPEED();
         this.fruta = new Uva("uva");
         this.random = new Random();
         this.FONTE = new Font("Times New Roman", Font.PLAIN, 20);
@@ -75,7 +76,7 @@ public class TelaJogo extends JPanel  {
         this.cCabeca = new Color(33, 5, 104);
         this.cCorpo = new Color(77, 120, 247);
         this.cCorpo2 = cCorpo;
-        this.bonusDuration = 0;
+
 
         start();
         setFocusable(true);
