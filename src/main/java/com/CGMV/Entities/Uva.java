@@ -7,14 +7,11 @@ import java.awt.*;
 
 public class Uva extends Fruta{
 
-
-
-
     public Uva(String nome)
-   {
-       super(nome);
-       this.cor = new Color(152, 5, 205);
-   }
+    {
+        super(nome);
+        this.cor = new Color(152, 5, 205);
+    }
 
     @Override
     public int getPoints( ) {
@@ -24,11 +21,7 @@ public class Uva extends Fruta{
     @Override
     public void bonus(Timer timer, Cobra cobra) {
 
-       timer.setDelay(10);
+        timer.setDelay(30);
     }
-
-
-
-
 
 }
