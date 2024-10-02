@@ -6,7 +6,7 @@ import com.CGMV.view.panel.TelaJogo;
 import javax.swing.*;
 
 public  class Cobra {
-    private  int SPEED = 45;
+    private  int SPEED = 50;
     private int tamCobra;
     private int frutasComidas;
     private char direcao;  // Direita, Esquerda, Cima, Baixo...
@@ -46,6 +46,6 @@ public  class Cobra {
 
     public void setTimer(Timer timer){this.timer = timer;}
 
-    public void teste(){this.timer.setDelay(1000);}
+
 
 }
