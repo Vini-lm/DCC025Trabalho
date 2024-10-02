@@ -2,7 +2,10 @@ package com.CGMV.Entities.profile;
 
 import com.CGMV.persistence.Config;
 
+import java.awt.*;
+
 public class Adm extends User{
+
 
 
 
@@ -11,6 +14,8 @@ public class Adm extends User{
         if(config != null)
             this.config = config;
     }
+
+
 
 
     public Config getConfig() {
@@ -22,5 +27,6 @@ public class Adm extends User{
         //this.data.mkdiruser(this);
         this.data.saveConfig(this.config,this);
     }
+
 
 }
