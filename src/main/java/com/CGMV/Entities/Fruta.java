@@ -11,16 +11,16 @@ public abstract class Fruta {
     protected String texture;
     protected Color cor;
     protected boolean invi;
-    protected int duration;
+
 
    // private int points;
 
 
 public Fruta(String nome)
 {
-    this.texture = "src/main/java/resources/textures/frutas/" + nome + ".png";
+    this.texture = "textures/frutas" + "/" + nome + ".png";
     this.invi = false;
-    this.duration = 100;
+
 }
 
 
