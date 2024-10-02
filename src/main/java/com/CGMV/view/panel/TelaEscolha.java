@@ -100,6 +100,7 @@ public class TelaEscolha extends JPanel {
                                     System.out.println("Config encontrada: " + config.getNome());
 
                                     if (found) {
+
                                         c1.setSelected(config.getDlinhas());
                                         c2.setSelected(config.getDpcorpo());
                                         c3.setSelected(config.getShowfps());
@@ -115,7 +116,6 @@ public class TelaEscolha extends JPanel {
                                 System.out.println("Nenhuma configuração encontrada para " + nameformated);
                             }
                         }
-
                         revalidate();
                         repaint();
                     }
@@ -275,8 +275,8 @@ public class TelaEscolha extends JPanel {
 
         this.config.update(c1.isSelected(),c2.isSelected(),c3.isSelected(),c4.isSelected(),nomec.getText());
         this.user.setNome(nomec.getText());
-        user.setCor1(listacor.get(corca.getSelectedIndex()).getCor());
-        user.setCor2(listacor.get(corcorpo.getSelectedIndex()).getCor());
+        user.setCor2(listacor.get(corca.getSelectedIndex()).getCor());
+        user.setCor1(listacor.get(corcorpo.getSelectedIndex()).getCor());
         this.user.setConfig(config);
         return this.user;
     }

@@ -18,7 +18,7 @@ public abstract class Fruta {
 
 public Fruta(String nome)
 {
-    this.texture = "textures/frutas" + "/" + nome + ".png";
+    this.texture = "src/main/java/resources/textures/frutas/" + nome + ".png";
     this.invi = false;
     this.duration = 100;
 }

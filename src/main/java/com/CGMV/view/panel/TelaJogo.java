@@ -94,7 +94,7 @@ public class TelaJogo extends JPanel  {
 
         this.user = user;
 
-        if(!(user instanceof Default)) {
+        if(user.getConfig() != null) {
             if(user != null) {
                 this.config = user.getConfig();
             }

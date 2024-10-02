@@ -1,14 +1,13 @@
 package com.CGMV.events;
 
+import com.CGMV.Entities.profile.Adm;
 import com.CGMV.Entities.profile.Default;
 import com.CGMV.Entities.profile.User;
 import com.CGMV.view.frame.MainScreen;
 import com.CGMV.view.panel.TelaInicial;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
+
 
 public class PadronizarUsuario extends GameEvents {
 

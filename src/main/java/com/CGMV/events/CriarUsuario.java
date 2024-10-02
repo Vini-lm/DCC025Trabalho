@@ -1,6 +1,7 @@
 package com.CGMV.events;
 
 import com.CGMV.Entities.profile.Adm;
+import com.CGMV.Entities.profile.Default;
 import com.CGMV.Entities.profile.User;
 import com.CGMV.view.frame.MainScreen;
 import com.CGMV.view.panel.TelaEscolha;
@@ -19,7 +20,7 @@ public class CriarUsuario extends GameEvents {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(this.user == null)
+        if(this.user == null || this.user instanceof Default)
             user = new Adm("none",null);
         this.panel = new TelaEscolha(frame,user);
         frame.setContentPane(panel);

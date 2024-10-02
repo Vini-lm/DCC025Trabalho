@@ -1,6 +1,7 @@
 package com.CGMV.events;
 
-import com.CGMV.Jogo.Game;
+
+import com.CGMV.Entities.profile.Adm;
 import com.CGMV.Entities.profile.User;
 import com.CGMV.view.frame.MainScreen;
 import com.CGMV.view.panel.TelaJogo;
@@ -21,7 +22,8 @@ public class IniciarJogo extends GameEvents {
 
     public void actionPerformed(ActionEvent e) {
         JPanel panel = new TelaJogo(user, frame);
-        this.user = sec.updateConfig();
+        if(this.user instanceof Adm)
+            this.user = sec.updateConfig();
         frame.setContentPane(panel);
         panel.requestFocusInWindow();
         frame.revalidate();
