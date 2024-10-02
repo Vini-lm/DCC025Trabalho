@@ -21,6 +21,7 @@ public class IniciarJogo extends GameEvents {
 
     public void actionPerformed(ActionEvent e) {
         JPanel panel = new TelaJogo(user, frame);
+        this.user = sec.updateConfig();
         frame.setContentPane(panel);
         panel.requestFocusInWindow();
         frame.revalidate();
