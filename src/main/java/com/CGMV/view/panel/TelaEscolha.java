@@ -2,6 +2,7 @@ package com.CGMV.view.panel;
 
 import com.CGMV.events.CreateUser;
 import com.CGMV.events.SalvarConfig;
+import com.CGMV.persistence.ColorOp;
 import com.CGMV.persistence.Config;
 import com.CGMV.Entities.profile.User;
 import com.CGMV.view.frame.MainScreen;
@@ -24,8 +25,8 @@ public class TelaEscolha extends JPanel {
     private final int LAR = 800;
     private final int ALT = 600;
     private JTextField nomec;
-    private JComboBox corcorpo1;
-    private JComboBox corcorpo2;
+    private JComboBox corca;
+    private JComboBox corcorpo;
     private JButton jogar;
     private JButton criar;
     private JButton remover;
@@ -37,6 +38,12 @@ public class TelaEscolha extends JPanel {
     private List<Config> configList;
 
 
+    private  List<ColorOp> listacor;
+
+
+
+
+
 
     private User user;
 
@@ -45,6 +52,18 @@ public class TelaEscolha extends JPanel {
         GridBagLayout lay = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
 
+        listacor = new ArrayList<>();
+        listacor.add( new ColorOp("Vermelho",Color.red));
+        listacor.add( new ColorOp("Verde",Color.green));
+        listacor.add( new ColorOp("Amarelo",Color.yellow));
+        listacor.add( new ColorOp("Azul",Color.blue));
+        listacor.add( new ColorOp("Ciano",new Color(15, 223, 207)));
+        listacor.add( new ColorOp("Laranja",new Color(225, 92, 12)));
+        listacor.add( new ColorOp("Verde Claro",new Color(18, 239, 107, 255)));
+        listacor.add( new ColorOp("Amarelo Claro",new Color(225, 197, 12)));
+        listacor.add( new ColorOp("Preto",new Color(0, 0, 0)));
+        listacor.add( new ColorOp("Azul escuro",new Color(0, 50, 131)));
+        listacor.add( new ColorOp("Branco", new Color(255, 255, 255, 255)));
 
         config = new Config();
         configList = new ArrayList<>();
@@ -60,6 +79,7 @@ public class TelaEscolha extends JPanel {
         lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listapainel.setPreferredSize(new Dimension(100,200));
         this.user = user;
+        user.setConfig(config);
         lista.addListSelectionListener(new ListSelectionListener() {
 
             @Override
@@ -68,33 +88,33 @@ public class TelaEscolha extends JPanel {
 
                 if (!e.getValueIsAdjusting()) {
                     if(lista.getSelectedValue() != null) {
-                    String nameformated = lista.getSelectedValue().trim();
-                    System.out.println("Nome selecionado na lista: " + nameformated);
-                    if (nameformated != null) {
-                        boolean found = false;
-                        for (Config configTemp : configList) {
-                            String configName = configTemp.getNome().trim();
-                            if (configName.equalsIgnoreCase(nameformated)) {
-                                config = configTemp;
-                                found = true;
-                                System.out.println("Config encontrada: " + config.getNome());
+                        String nameformated = lista.getSelectedValue().trim();
+                        System.out.println("Nome selecionado na lista: " + nameformated);
+                        if (nameformated != null) {
+                            boolean found = false;
+                            for (Config configTemp : configList) {
+                                String configName = configTemp.getNome().trim();
+                                if (configName.equalsIgnoreCase(nameformated)) {
+                                    config = configTemp;
+                                    found = true;
+                                    System.out.println("Config encontrada: " + config.getNome());
 
-                                if (found) {
-                                    c1.setSelected(config.getDlinhas());
-                                    c2.setSelected(config.getDpcorpo());
-                                    c3.setSelected(config.getShowfps());
-                                    c4.setSelected(config.getFulltab());
+                                    if (found) {
+                                        c1.setSelected(config.getDlinhas());
+                                        c2.setSelected(config.getDpcorpo());
+                                        c3.setSelected(config.getShowfps());
+                                        c4.setSelected(config.getFulltab());
+                                    }
+
+                                    nomec.setText(config.getNome());
+                                    break;
                                 }
+                            }
 
-                                nomec.setText(config.getNome());
-                                break;
+                            if (!found) {
+                                System.out.println("Nenhuma configuração encontrada para " + nameformated);
                             }
                         }
-
-                        if (!found) {
-                            System.out.println("Nenhuma configuração encontrada para " + nameformated);
-                        }
-                    }
 
                         revalidate();
                         repaint();
@@ -106,8 +126,35 @@ public class TelaEscolha extends JPanel {
 
 
         nomec = new JTextField(15);
-        corcorpo1 = new JComboBox<Color>();
-        corcorpo2 = new JComboBox<Color>();
+        corca = new JComboBox<>();
+        corcorpo = new JComboBox<>();
+
+
+
+
+        for (ColorOp cor : listacor) {
+            corca.addItem(cor.getNomecor());
+            corcorpo.addItem(cor.getNomecor());
+        }
+
+
+        corca.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedColorName = (String) corca.getSelectedItem();
+            }
+        });
+
+        corcorpo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedColorName = (String) corcorpo.getSelectedItem();
+            }
+        });
+
+
+
+
 
         jogar = new JButton("Jogar");
         criar = new JButton("Criar");
@@ -148,7 +195,7 @@ public class TelaEscolha extends JPanel {
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
 
-        add(corcorpo1,c);
+        add(corca,c);
         c.gridx = 0;
         c.gridy = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -157,7 +204,7 @@ public class TelaEscolha extends JPanel {
         c.gridy = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
 
-        add(corcorpo2,c);
+        add(corcorpo,c);
         c.gridx = 0;
         c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -202,9 +249,9 @@ public class TelaEscolha extends JPanel {
         nomec.setText("Nome do usuário");
 
 
-        nomec.setToolTipText("Cor da cabeça da cobra");
-        corcorpo1.setToolTipText("Cor do corpo");
-        corcorpo2.setToolTipText("Cor2 do corpo");
+        nomec.setToolTipText("Nome do usuário");
+        corca.setToolTipText("Cor da cabeça");
+        corcorpo.setToolTipText("Cor do corpo");
 
         loadConfig();
 
@@ -221,10 +268,17 @@ public class TelaEscolha extends JPanel {
     }
 
     public User updateConfig(){
-        this.config.update(c1.isSelected(),c2.isSelected(),c3.isSelected(),c4.isSelected(),null,null,nomec.getText());
+
+
+        if(config == null)
+            config = new Config();
+
+        this.config.update(c1.isSelected(),c2.isSelected(),c3.isSelected(),c4.isSelected(),nomec.getText());
         this.user.setNome(nomec.getText());
+        user.setCor1(listacor.get(corca.getSelectedIndex()).getCor());
+        user.setCor2(listacor.get(corcorpo.getSelectedIndex()).getCor());
         this.user.setConfig(config);
-        return  this.user;
+        return this.user;
     }
 
 
@@ -249,7 +303,7 @@ public class TelaEscolha extends JPanel {
 
                     }
                     catch (Exception e){
-                    e.getMessage();
+                        e.getMessage();
                     }
                 }
 
@@ -282,15 +336,15 @@ public class TelaEscolha extends JPanel {
         String configsave = "Save/" + removecon.getNome() + "_config";
 
 
-       File file = new File(configsave);
-       if(file.exists())
-          file.delete();
+        File file = new File(configsave);
+        if(file.exists())
+            file.delete();
 
-       configsave = "Save/" + removecon.getNome() + "_score";
-       file = new File(configsave);
+        configsave = "Save/" + removecon.getNome() + "_score";
+        file = new File(configsave);
 
-       if(file.exists())
-           file.delete();
+        if(file.exists())
+            file.delete();
 
         configList.remove(i);
         listaModel.removeElementAt(i);
