@@ -12,10 +12,11 @@ public  abstract class GameEvents  implements ActionListener {
 
 
     protected final MainScreen frame;
-    protected JPanel panel;
+    protected  JPanel panel;
     protected  JButton button;
-    protected User user;
+    protected  User user;
     protected  TelaEscolha sec;
+    protected  Config config;
 
 
     public GameEvents(MainScreen frame, JPanel panel, JButton button) {
@@ -53,6 +54,16 @@ public  abstract class GameEvents  implements ActionListener {
         this.frame = frame;
         this.sec = panel;
         this.button = new JButton();
+        this.config = config;
+    }
+
+    public GameEvents(TelaEscolha panel, JButton button,User user)
+    {
+        this.frame = null;
+        this.sec = panel;
+        this.button = new JButton();
+        this.config = user.getConfig();
+
     }
 
     @Override

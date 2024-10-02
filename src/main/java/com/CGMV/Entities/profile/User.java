@@ -4,10 +4,14 @@ import com.CGMV.Entities.Cobra;
 import com.CGMV.persistence.Config;
 import com.CGMV.persistence.Data;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
 public abstract class User {
 
     protected String name;
-    protected Data data;
+    public Data data;
     protected Config config;
 
 
@@ -23,7 +27,9 @@ public abstract class User {
 
     public void saveScore(Cobra cobra){
         data.saveScore(cobra,this);
+
     }
+
 
     public abstract void init();
 
@@ -34,4 +40,10 @@ public abstract class User {
     public Config getConfig() {
         return config;
     }
+
+    public void save(Config config){data.saveConfig(config,this);}
+
+
+
+    public void setNome(String nome){this.name = nome;}
 }

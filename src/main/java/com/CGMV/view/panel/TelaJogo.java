@@ -1,6 +1,7 @@
 package com.CGMV.view.panel;
 
 import com.CGMV.Entities.*;
+import com.CGMV.Entities.profile.Adm;
 import com.CGMV.events.Controler.GameKeyListener;
 import com.CGMV.Entities.profile.Default;
 import com.CGMV.Entities.profile.User;
@@ -22,6 +23,7 @@ public class TelaJogo extends JPanel  {
     private int unidades = (LAR*ALT)/(pTabuleiro*pTabuleiro);
     private MainScreen main;
     private User user;
+    private int delay;
 
 
     //2
@@ -51,6 +53,7 @@ public class TelaJogo extends JPanel  {
 
     //4
     private Config config;
+    private int bonusDuration;
 
 
 
@@ -64,7 +67,9 @@ public class TelaJogo extends JPanel  {
 
     public TelaJogo(MainScreen main)
     {
-        this.cobra = new Cobra();
+
+        this.delay = 45;
+        this.cobra = new Cobra(null);
         this.fruta = new Uva("uva");
         this.random = new Random();
         this.FONTE = new Font("Times New Roman", Font.PLAIN, 20);
@@ -75,14 +80,14 @@ public class TelaJogo extends JPanel  {
         this.cCabeca = new Color(33, 5, 104);
         this.cCorpo = new Color(77, 120, 247);
         this.cCorpo2 = cCorpo;
+        this.bonusDuration = 0;
 
-
-
+        start();
         setFocusable(true);
         setPreferredSize(new Dimension(LAR,ALT));
         setBackground(Color.WHITE);
         addKeyListener(new GameKeyListener(cobra));
-        start();
+
 
     }
 
@@ -90,6 +95,8 @@ public class TelaJogo extends JPanel  {
     public TelaJogo(User user, MainScreen main)
     {
         this(main);
+
+        this.user = user;
 
         if(!(user instanceof Default)) {
             if(user != null) {
@@ -117,12 +124,13 @@ public class TelaJogo extends JPanel  {
     {
         isRunning = true;
         setFrutaPos();
-        timer = new Timer(cobra.getSPEED(), new ActionListener() {
+        timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isRunning){
                     walk();
                     checkColisao();
+
                 }
                 repaint();
             }
@@ -135,14 +143,17 @@ public class TelaJogo extends JPanel  {
                 checkFps();
             }
         });
+        cobra.setTimer(timer);
         timer.start();
         timer2.start();
     }
 
     private void setFrutaPos() // Gerador de posição da fruta
     {
-    fruta.setIdX(random.nextInt(LAR/pTabuleiro) * pTabuleiro); // gera uma posição X para a fruta
-    fruta.setIdY(random.nextInt(ALT/pTabuleiro) * pTabuleiro); // gera uma posição y para a fruta
+
+            fruta.setIdX(random.nextInt(LAR / pTabuleiro) * pTabuleiro); // gera uma posição X para a fruta
+            fruta.setIdY(random.nextInt(ALT / pTabuleiro) * pTabuleiro); // gera uma posição y para a fruta
+
     }
 
     @Override
@@ -181,7 +192,11 @@ public class TelaJogo extends JPanel  {
             main.repaint();
             timer.stop();
             timer2.stop();
-            user.saveScore(cobra);
+           if(user instanceof Adm) {
+               user.saveScore(cobra);
+               user.data.saveConfig(user.getConfig(), user);
+
+           }
         }
     }
 
@@ -321,27 +336,38 @@ public class TelaJogo extends JPanel  {
         {
             cobra.feed(fruta, this); // aumenta o tamanho dela
 
-            if(fruta instanceof Uva) { // se a fruta for uva
-                fruta = new Maca("maca");
+            int chance = random.nextInt(1,100);
 
-                fruta.bonus(timer,false);
-            }// faz a fruta ser uma banana
-            else if(fruta instanceof Maca) {// se a fruta for uma banana
-                fruta = new Uva("uva"); // faz fruta ser uma uva
-                timer.setDelay(cobra.getSPEED());
-            }
+            timer.setDelay(delay);
+            cobra.setInvi(false);
+
+            fruta.bonus(timer,cobra);
+
+          if(chance <= 10) {
+
+              fruta = new Uva("uva");
+          }
+          else if (chance >= 11 && chance <= 31) {
+
+              fruta = new Maca("maca");
+          }
+          else if (chance >= 32 && chance <= 100) {
+
+              fruta = new Banana("banana");
+          }
+
 
             setFrutaPos(); // gera uma nova posição para a comida
-
-
 
         }
 
 
         for(int i = cobra.getTamCobra(); i > 0; i--)
         {
-            if(EIXO_X[0] == EIXO_X[i] && EIXO_Y[0] == EIXO_Y[i]) // verifica se a cobra bateu no próprio corpo
-                isRunning = false;
+            if(!cobra.getInvi()) {
+                if (EIXO_X[0] == EIXO_X[i] && EIXO_Y[0] == EIXO_Y[i]) // verifica se a cobra bateu no próprio corpo
+                    isRunning = false;
+            }
             while(EIXO_X[i] == fruta.getIdX() && EIXO_Y[i] == fruta.getIdY()) // garante que a comida esteja em uma posição livre
                 setFrutaPos();
 
@@ -355,15 +381,17 @@ public class TelaJogo extends JPanel  {
 
 
     private void checkBatida(){
-        if(EIXO_X[0] < 0  || EIXO_X[0] >= LAR) // Se a cobra ultrapassar os limites da tela(bater em um dos lados)
-        {
-            isRunning = false;
-        }
 
-        if(EIXO_Y[0] < 0  || EIXO_Y[0] >= ALT ) // Se a cobra ultrapassar os limites de altura
-            isRunning = false;
+          if (EIXO_X[0] < 0 || EIXO_X[0] >= LAR) // Se a cobra ultrapassar os limites da tela(bater em um dos lados)
+          {
+              isRunning = false;
+          }
 
-    }
+          if (EIXO_Y[0] < 0 || EIXO_Y[0] >= ALT) // Se a cobra ultrapassar os limites de altura
+              isRunning = false;
+      }
+
+
 
 
     private void checkLimite()
@@ -379,6 +407,7 @@ public class TelaJogo extends JPanel  {
         else if(EIXO_Y[0] >= ALT)
             EIXO_Y[0] = 0;
     }
+
 
 
 }

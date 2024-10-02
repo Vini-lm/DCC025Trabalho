@@ -1,41 +1,53 @@
 package com.CGMV.view.panel;
 
+import com.CGMV.events.CreateUser;
 import com.CGMV.events.SalvarConfig;
 import com.CGMV.persistence.Config;
 import com.CGMV.Entities.profile.User;
 import com.CGMV.view.frame.MainScreen;
+import com.google.gson.Gson;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TelaEscolha extends JPanel {
 
     private final int LAR = 800;
     private final int ALT = 600;
-    private JTextField corcab;
-    private JTextField corcorpo1;
-    private JTextField corcorpo2;
-    private JButton salvar;
+    private JTextField nomec;
+    private JComboBox corcorpo1;
+    private JComboBox corcorpo2;
+    private JButton jogar;
+    private JButton criar;
+    private JButton remover;
     private JList<String> lista;
     private JScrollPane listapainel;
-    private DefaultListModel<String> listaModel;
-
+    public DefaultListModel<String> listaModel;
     private JCheckBox c1,c2,c3,c4;
-
     private Config config;
+    private List<Config> configList;
 
 
 
+    private User user;
 
     public TelaEscolha(MainScreen main, User user) {
 
         GridBagLayout lay = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
 
-        config = new Config();
 
+        config = new Config();
+        configList = new ArrayList<>();
         c.insets = new Insets(5, 5, 5, 5);
         this.setLayout(lay);
         c1 = new JCheckBox("Linhas no tabuleiro");
@@ -47,15 +59,76 @@ public class TelaEscolha extends JPanel {
         listapainel = new JScrollPane(lista);
         lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listapainel.setPreferredSize(new Dimension(100,200));
+        this.user = user;
+        lista.addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
 
 
-        corcab = new JTextField(15);
-        corcorpo1 = new JTextField(15);
-        corcorpo2 = new JTextField(15);
+                if (!e.getValueIsAdjusting()) {
+                    if(lista.getSelectedValue() != null) {
+                    String nameformated = lista.getSelectedValue().trim();
+                    System.out.println("Nome selecionado na lista: " + nameformated);
+                    if (nameformated != null) {
+                        boolean found = false;
+                        for (Config configTemp : configList) {
+                            String configName = configTemp.getNome().trim();
+                            if (configName.equalsIgnoreCase(nameformated)) {
+                                config = configTemp;
+                                found = true;
+                                System.out.println("Config encontrada: " + config.getNome());
 
-        salvar = new JButton("Salvar");
+                                if (found) {
+                                    c1.setSelected(config.getDlinhas());
+                                    c2.setSelected(config.getDpcorpo());
+                                    c3.setSelected(config.getShowfps());
+                                    c4.setSelected(config.getFulltab());
+                                }
 
-        salvar.addActionListener(new SalvarConfig(main,this,config));
+                                nomec.setText(config.getNome());
+                                break;
+                            }
+                        }
+
+                        if (!found) {
+                            System.out.println("Nenhuma configuração encontrada para " + nameformated);
+                        }
+                    }
+
+                        revalidate();
+                        repaint();
+                    }
+                }
+            }
+
+        });
+
+
+        nomec = new JTextField(15);
+        corcorpo1 = new JComboBox<Color>();
+        corcorpo2 = new JComboBox<Color>();
+
+        jogar = new JButton("Jogar");
+        criar = new JButton("Criar");
+        remover = new JButton("Remover");
+
+        jogar.addActionListener(new SalvarConfig(main, this, user, config));
+        criar.addActionListener(new CreateUser(this, criar, user, config));
+        remover.addActionListener(new ActionListener() {
+
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = lista.getSelectedIndex();
+                if (selectedIndex != -1) {
+                    remove2(selectedIndex);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione algum item!");
+                }
+            }
+        });
+
 
 
         c.gridx = 0;
@@ -65,7 +138,7 @@ public class TelaEscolha extends JPanel {
         c.gridx = 1;
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
-        add(corcab,c);
+        add(nomec,c);
         c.gridx = 0;
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -92,7 +165,18 @@ public class TelaEscolha extends JPanel {
         c.gridx = 0;
         c.gridy = 4;
 
-        add(salvar,c);
+        add(jogar,c);
+
+        c.gridx = 1;
+        c.gridy = 4;
+        add(criar,c);
+
+        c.gridx = 0;
+        c.gridy = 6;
+        c.gridwidth = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(10, 5, 10, 5);
+        add(remover, c);
 
         c.gridx = 1;
         c.gridy = 5;
@@ -107,57 +191,113 @@ public class TelaEscolha extends JPanel {
 
 
 
+        c.gridx = 1;
+        c.gridy = 6;
+        c.fill = GridBagConstraints.BOTH;
 
-        corcab.setText("Cor da cabeça da cobra");
-        corcorpo1.setText("Cor do corpo");
-        corcorpo2.setText("Cor2 do corpo");
 
-        corcab.setToolTipText("Cor da cabeça da cobra");
+
+
+
+        nomec.setText("Nome do usuário");
+
+
+        nomec.setToolTipText("Cor da cabeça da cobra");
         corcorpo1.setToolTipText("Cor do corpo");
         corcorpo2.setToolTipText("Cor2 do corpo");
 
-        loadCondfig("Save" + "/"  + "teste" + "_score");
+        loadConfig();
 
-
-
-
-
-
+        nomec.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                user.setNome(nomec.getText());
+            }
+        });
         setPreferredSize(new Dimension(LAR,ALT));
         setFocusable(true);
         setVisible(true);
 
     }
 
-    public void updateConfig(){
-        this.config.update(c1.isSelected(),c2.isSelected(),c3.isSelected(),c4.isSelected(),null,null);
+    public User updateConfig(){
+        this.config.update(c1.isSelected(),c2.isSelected(),c3.isSelected(),c4.isSelected(),null,null,nomec.getText());
+        this.user.setNome(nomec.getText());
+        this.user.setConfig(config);
+        return  this.user;
     }
 
 
-    private void loadCondfig(String localpath) {
+    public void loadConfig() {
 
 
-        try {
-            FileReader fr = new FileReader("Save/teste_config");
-            BufferedReader br = new BufferedReader(fr);
+        File pasta = new File("Save/");
+        File[] lista = pasta.listFiles();
 
-            String temp;
 
-            for (int j = 0; (temp = br.readLine()) != null; j++) {
-                listaModel.addElement(temp);
+        configList = new ArrayList<>();
+        if(lista != null){
+            Gson gson = new Gson();
+            for(File file : lista)
+            {
+                if(file.isFile() && file.getName().endsWith("_config")){
+                    try(BufferedReader reader = new BufferedReader(new FileReader(file))){
+                        config = gson.fromJson(reader,Config.class);
+                        configList.add(config);
+
+                        listaModel.addElement(config.getNome());
+
+                    }
+                    catch (Exception e){
+                    e.getMessage();
+                    }
+                }
+
             }
 
+        }
+        this.revalidate();
+        this.repaint();
+        this.lista.updateUI();
 
     }
-    catch(Exception e){
-            e.printStackTrace();
+    public void addto(Config config)
+    {
+
+        if(!listaModel.contains(nomec.getText())) {
+            configList.add(config);
+            listaModel.addElement(config.getNome());
+        }
     }
 
+    private void atualizauser(){this.user.setNome(nomec.getText());}
+
+    public void remove2(int i){
+        System.out.println(i);
+
+        if(i -1 >= 0)
+            lista.setSelectedIndex(i -1);
+
+        Config removecon = configList.get(i);
+        String configsave = "Save/" + removecon.getNome() + "_config";
 
 
+       File file = new File(configsave);
+       if(file.exists())
+          file.delete();
+
+       configsave = "Save/" + removecon.getNome() + "_score";
+       file = new File(configsave);
+
+       if(file.exists())
+           file.delete();
+
+        configList.remove(i);
+        listaModel.removeElementAt(i);
+        lista.updateUI();
     }
 
-
+    public int getselec(){return lista.getSelectedIndex();}
 
 
 }

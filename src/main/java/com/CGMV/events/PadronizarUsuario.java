@@ -1,5 +1,6 @@
 package com.CGMV.events;
 
+import com.CGMV.Entities.profile.Default;
 import com.CGMV.Entities.profile.User;
 import com.CGMV.view.frame.MainScreen;
 import com.CGMV.view.panel.TelaInicial;
@@ -19,7 +20,8 @@ public class PadronizarUsuario extends GameEvents {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        this.panel = new TelaInicial(frame,user);
+        User Default = new Default("None");
+        this.panel = new TelaInicial(frame,Default);
         frame.setContentPane(panel);
         panel.requestFocusInWindow();
         frame.revalidate();
