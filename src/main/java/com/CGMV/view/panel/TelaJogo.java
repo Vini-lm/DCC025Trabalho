@@ -60,11 +60,6 @@ public class TelaJogo extends JPanel  {
 
 
 
-
-
-
-
-
     public TelaJogo(MainScreen main)
     {
 
@@ -100,7 +95,7 @@ public class TelaJogo extends JPanel  {
 
         if(!(user instanceof Default)) {
             if(user != null) {
-               this.config = user.getConfig();
+                this.config = user.getConfig();
             }
             else System.out.println("Usuário nulo");
 
@@ -108,12 +103,12 @@ public class TelaJogo extends JPanel  {
             System.out.println("Valor de " + config.getDlinhas() + " Valor de " + config.getDpcorpo() + " Valor de " + config.getShowfps());
 
             if (cCorpo != null)
-                this.cCorpo = cCorpo;
+                this.cCorpo = user.getCor1();
             if (cCabeca != null)
-                this.cCabeca = cCabeca;
+                this.cCabeca = user.getCor2();
 
             if (cCorpo2 != null)
-                this.cCorpo2 = cCorpo2;
+                this.cCorpo2 = user.getCor1();
         }
 
     }
@@ -139,8 +134,8 @@ public class TelaJogo extends JPanel  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 repaint();
-            if(config.getShowfps())
-                checkFps();
+                if(config.getShowfps())
+                    checkFps();
             }
         });
         cobra.setTimer(timer);
@@ -151,8 +146,8 @@ public class TelaJogo extends JPanel  {
     private void setFrutaPos() // Gerador de posição da fruta
     {
 
-            fruta.setIdX(random.nextInt(LAR / pTabuleiro) * pTabuleiro); // gera uma posição X para a fruta
-            fruta.setIdY(random.nextInt(ALT / pTabuleiro) * pTabuleiro); // gera uma posição y para a fruta
+        fruta.setIdX(random.nextInt(LAR / pTabuleiro) * pTabuleiro); // gera uma posição X para a fruta
+        fruta.setIdY(random.nextInt(ALT / pTabuleiro) * pTabuleiro); // gera uma posição y para a fruta
 
     }
 
@@ -185,18 +180,18 @@ public class TelaJogo extends JPanel  {
         }
         else
         {
-           JPanel nova = new TelaFimDeJogo(main,user);
+            JPanel nova = new TelaFimDeJogo(main,user);
             main.setContentPane(nova);
             this.requestFocusInWindow();
             main.revalidate();
             main.repaint();
             timer.stop();
             timer2.stop();
-           if(user instanceof Adm) {
-               user.saveScore(cobra);
-               user.data.saveConfig(user.getConfig(), user);
+            if(user instanceof Adm) {
+                user.saveScore(cobra);
+                user.data.saveConfig(user.getConfig(), user);
 
-           }
+            }
         }
     }
 
@@ -214,11 +209,11 @@ public class TelaJogo extends JPanel  {
 
     private void desenhaFruta(Graphics g)
     {
-         g.drawImage(new ImageIcon(fruta.getTexture()).getImage(),fruta.getIdX(), fruta.getIdY(),pTabuleiro,pTabuleiro + 5, this);
+        g.drawImage(new ImageIcon(fruta.getTexture()).getImage(),fruta.getIdX(), fruta.getIdY(),pTabuleiro,pTabuleiro + 5, this);
 
         //g.setColor(fruta.getColor());
 
-       // g.fillOval(fruta.getIdX(),fruta.getIdY(),pTabuleiro,pTabuleiro); // desenha a fruta na posição dela com o tamanho proporcional ao tabuleiro
+        // g.fillOval(fruta.getIdX(),fruta.getIdY(),pTabuleiro,pTabuleiro); // desenha a fruta na posição dela com o tamanho proporcional ao tabuleiro
     }
 
 
@@ -343,18 +338,18 @@ public class TelaJogo extends JPanel  {
 
             fruta.bonus(timer,cobra);
 
-          if(chance <= 10) {
+            if(chance <= 10) {
 
-              fruta = new Uva("uva");
-          }
-          else if (chance >= 11 && chance <= 31) {
+                fruta = new Uva("uva");
+            }
+            else if (chance >= 11 && chance <= 31) {
 
-              fruta = new Maca("maca");
-          }
-          else if (chance >= 32 && chance <= 100) {
+                fruta = new Maca("maca");
+            }
+            else if (chance >= 32 && chance <= 100) {
 
-              fruta = new Banana("banana");
-          }
+                fruta = new Banana("banana");
+            }
 
 
             setFrutaPos(); // gera uma nova posição para a comida
@@ -382,14 +377,14 @@ public class TelaJogo extends JPanel  {
 
     private void checkBatida(){
 
-          if (EIXO_X[0] < 0 || EIXO_X[0] >= LAR) // Se a cobra ultrapassar os limites da tela(bater em um dos lados)
-          {
-              isRunning = false;
-          }
+        if (EIXO_X[0] < 0 || EIXO_X[0] >= LAR) // Se a cobra ultrapassar os limites da tela(bater em um dos lados)
+        {
+            isRunning = false;
+        }
 
-          if (EIXO_Y[0] < 0 || EIXO_Y[0] >= ALT) // Se a cobra ultrapassar os limites de altura
-              isRunning = false;
-      }
+        if (EIXO_Y[0] < 0 || EIXO_Y[0] >= ALT) // Se a cobra ultrapassar os limites de altura
+            isRunning = false;
+    }
 
 
 
